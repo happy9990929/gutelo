@@ -1,4 +1,4 @@
-# backend
+# gutelo
 
 ## Project setup
 ```
