@@ -9,12 +9,12 @@
               來自台灣的專業技師製作，難以抗拒的共鳴音色
               <br />多種入門至進階款式，找到練琴的最佳手感
             </div>
-            <button class="btn border border-primary text-primary bannerBtn">
+            <router-link to="/products" class="btn border border-primary text-primary bannerBtn">
               挑選你的吉他
               <span>
                 <i class="fas fa-angle-right"></i>
               </span>
-            </button>
+            </router-link>
           </div>
           <div>
             <div class="guitarBox mx-auto"></div>
@@ -32,33 +32,34 @@
           <div class="subName ml-lg-5">Product Description</div>
         </div>
         <div class="position-relative text-primary text-center d-lg-flex justify-content-between">
-          <div class="productItem product_ele">
+          <router-link to="/products" tag="div" class="productItem product_ele">
             <div class="position-relative">
               <img src="@/assets/images/frontend/index/product_ele.jpg" class="img-fluid" />
               <div class="productName">
                 <span class="productBorder">電吉他</span>
               </div>
             </div>
-          </div>
-          <div class="productItem product_wood">
+          </router-link>
+          <router-link to="/products" tag="div" class="productItem product_wood">
             <div class="position-relative">
               <img src="@/assets/images/frontend/index/product_wood.jpg" class="img-fluid" />
               <div class="productName">
                 <span class="productBorder">木吉他</span>
               </div>
             </div>
-          </div>
-          <div class="productItem product_ukulele">
+          </router-link>
+          <router-link to="/products" tag="div" class="productItem product_ukulele">
             <div class="position-relative">
               <img src="@/assets/images/frontend/index/product_ukulele.jpg" class="img-fluid" />
               <div class="productName">
                 <span class="productBorder">烏克莉莉</span>
               </div>
             </div>
-          </div>
+          </router-link>
         </div>
       </div>
     </section>
+    <!--
     <section class="py-5">
       <div class="productBox mx-auto">
         <div class="text-center text-lg-left">
@@ -132,6 +133,7 @@
         </div>
       </superslide>
     </section>
+    -->
   </main>
 </template>
 <script>
@@ -200,6 +202,7 @@ export default {
   width: 48%;
   position: absolute;
   overflow: hidden;
+  cursor: pointer;
 }
 .productBox {
   width: 90%;

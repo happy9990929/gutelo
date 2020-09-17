@@ -50,10 +50,10 @@
           <tfoot class="tfoot text-right">
             <td colspan="6">
               <span>
-                總共 <span class="text-primary">5</span> 件商品
+                總共 <span class="text-primary">{{ amount }}</span> 件商品
               </span>
               <span class="h5 text-primary mx-3 total">
-                總金額 $38000
+                總金額 ${{ cartTotal }}
               </span>
             </td>
           </tfoot>
@@ -83,13 +83,11 @@ export default {
     return {
       cart: [],
       amount: 0,
+      cartTotal: 0,
     };
   },
   created() {
     this.getCart();
-  },
-  mounted() {
-
   },
   methods: {
     getCart() {
@@ -99,10 +97,15 @@ export default {
         loader.hide();
         console.log(res);
         this.cart = res.data.data;
+        this.cartAmount();
       }).catch((error) => {
         loader.hide();
         console.log(error);
       });
+    },
+    cartAmount() {
+      this.amount = this.cart.reduce((acc, val) => acc + val.quantity, 0);
+      this.cartTotal = this.cart.reduce((acc, val) => acc + val.product.price * val.quantity, 0);
     },
     deleteCart(item) {
       const loader = this.$loading.show();
@@ -110,6 +113,7 @@ export default {
       this.$http.delete(api).then((res) => {
         loader.hide();
         this.getCart();
+        this.cartAmount();
         console.log(res);
       }).catch((error) => {
         loader.hide();

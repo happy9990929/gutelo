@@ -22,7 +22,7 @@
           </div>
           <router-link class="nav-link text-primary mx-md-3 position-relative" to="/cart">
             <span><i class="fas fa-shopping-cart"></i></span>
-            <span class="cartNum bg-danger text-white">{{quantity}}</span>
+            <!-- <span class="cartNum bg-danger text-white">{{amount}}</span> -->
           </router-link>
         </div>
       </div>
@@ -33,7 +33,9 @@
 export default {
   data() {
     return {
-      quantity: 0,
+      cart: [],
+      amount: 0,
+      cartTotal: 0,
     };
   },
   created() {
@@ -41,12 +43,20 @@ export default {
   },
   methods: {
     getCart() {
+      const loader = this.$loading.show();
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping`;
       this.$http.get(api).then((res) => {
-        console.log(res);
+        loader.hide();
+        this.cart = res.data.data;
+        this.cartAmount();
       }).catch((error) => {
+        loader.hide();
         console.log(error);
       });
+    },
+    cartAmount() {
+      this.amount = this.cart.reduce((acc, val) => acc + val.quantity, 0);
+      this.cartTotal = this.cart.reduce((acc, val) => acc + val.product.price * val.quantity, 0);
     },
   },
 };
