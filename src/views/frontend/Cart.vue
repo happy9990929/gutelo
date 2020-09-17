@@ -28,16 +28,7 @@
               <td class="align-middle">{{item.product.title}}</td>
               <td class="align-middle">{{item.product.price}}</td>
               <td class="align-middle">
-                <button type="button" class="btn border border-secondary rounded-0 py-0"
-                  @click="item.quantity-=1">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <input type="number" class="numInput border border-light text-light
-                  text-center" :value="item.quantity"/>
-                  <button type="button" class="btn border border-secondary rounded-0 py-0"
-                  @click="item.quantity+=1">
-                    <i class="fas fa-plus"></i>
-                  </button>
+                {{item.quantity}}
               </td>
               <td class="align-middle">{{ item.quantity * item.product.price }}</td>
               <td class="align-middle">
