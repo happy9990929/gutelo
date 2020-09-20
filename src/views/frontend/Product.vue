@@ -32,23 +32,23 @@
               <div class="d-flex align-items-center">
                 <div class="d-flex mx-3">
                   <button type="button" class="btn border border-secondary rounded-0 py-0"
-                  @click="quantity-=1">
+                  @click="updateCart(product.id, product.num-1)">
                     <i class="fas fa-minus"></i>
                   </button>
                   <input type="number" class="numInput border-left-0 border-right-0 border-secondary
-                  text-center" :value="quantity"/>
+                  text-center" :value="product.num"/>
                   <button type="button" class="btn border border-secondary rounded-0 py-0"
-                  @click="quantity+=1">
+                  @click="updateCart(product.id, product.num+1)">
                     <i class="fas fa-plus"></i>
                   </button>
                 </div>
-                <div>還剩22件</div>
+                <!-- <div>還剩22件</div> -->
               </div>
             </div>
           </div>
           <div class="py-3 d-flex align-items-center justify-content-between">
             <div class="text-danger h4">NT ${{ product.price }}</div>
-            <button class="btn addCart" @click="addToCart">
+            <button class="btn addCart" @click="addToCart(product.id, product.num)">
               <i class="fas fa-shopping-cart"></i>
               加入購物車
             </button>
@@ -96,9 +96,11 @@
 export default {
   data() {
     return {
-      product: [],
+      product: {
+        num: 1,
+        imageUrl: [],
+      },
       cart: [],
-      quantity: 1,
     };
   },
   created() {
@@ -111,7 +113,10 @@ export default {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/product/${this.$route.params.id}`;
       this.$http.get(api).then((res) => {
         loader.hide();
-        this.product = res.data.data;
+        this.product = {
+          ...res.data.data,
+          num: 1,
+        };
       }).catch((error) => {
         loader.hide();
         console.log(error);
@@ -125,14 +130,30 @@ export default {
         console.log(error);
       });
     },
-    addToCart() {
+    addToCart(id, quantity = 1) {
       const cart = {
-        product: this.$route.params.id,
-        quantity: this.quantity,
+        product: id,
+        quantity,
       };
       const loader = this.$loading.show();
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping`;
       this.$http.post(api, cart).then(() => {
+        loader.hide();
+        this.getCart();
+      }).catch((error) => {
+        loader.hide();
+        console.log(error);
+      });
+    },
+    updateCart(id, quantity) {
+      const cart = {
+        product: id,
+        quantity,
+      };
+      this.product.num = quantity;
+      const loader = this.$loading.show();
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping`;
+      this.$http.patch(api, cart).then(() => {
         loader.hide();
         this.getCart();
       }).catch((error) => {

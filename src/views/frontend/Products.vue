@@ -69,7 +69,6 @@ export default {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping`;
       this.$http.post(api, cart).then(() => {
         loader.hide();
-        this.getCart();
       }).catch((error) => {
         loader.hide();
         console.log(error);
