@@ -1,8 +1,6 @@
 <template>
   <main>
-    <div>
-      <img src="@/assets/images/frontend/cart.jpg" class="img-fluid">
-    </div>
+    <Banner/>
     <div class="text-center mt-5 mb-3">
       <div class="titleName">購物車</div>
       <div class="subName">Shopping Cart</div>
@@ -65,10 +63,11 @@
 </template>
 <script>
 import cartStep from '@/components/cartStep.vue';
+import Banner from '@/components/Banner.vue';
 
 export default {
   components: {
-    cartStep,
+    cartStep, Banner,
   },
   data() {
     return {
